@@ -65,10 +65,189 @@ Meteor.startup(function () {
             }
           }]
         }
-      }
-      //,
-      // // ---------------------------------------------------------
-      // // below probably doesn't work
+      },
+
+      {
+        resourceType: 'Medication',
+        code: {
+          text: "Zyrtec"
+        },
+        isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
+        product: {
+          form: {
+            text: 'tablet'
+          },
+          ingredient: [{
+            item: {
+              resourceType: 'Substance',
+              code: {
+                text: 'Cetinizine HCl'
+              },
+              description: 'Antihistamine'
+            },
+            instance: [{
+              quantity: '10 mg'
+            }]
+          }]
+        },
+        package: {
+          container: {
+            text: 'bottle'
+          },
+          content: [{
+            amount: {
+              value: 70,
+              unit: 'tablet'
+            }
+          }]
+        }
+      },
+
+      {
+        resourceType: 'Medication',
+        code: {
+          text: "Mentholatum Ointment"
+        },
+        isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
+        product: {
+          form: {
+            text: 'salve'
+          },
+          ingredient: [{
+            item: {
+              resourceType: 'Substance',
+              code: {
+                text: 'Camphor'
+              },
+              description: 'Topical analgesic'
+            },
+            instance: [{
+              quantity: '9%'
+            }]
+          },{
+            item: {
+              resourceType: 'Substance',
+              code: {
+                text: 'Menthol, natural'
+              },
+              description: 'Topical analgesic'
+            },
+            instance: [{
+              quantity: '1.3%'
+            }]
+          }]
+        },
+        package: {
+          container: {
+            text: ''
+          },
+          content: [{
+            amount: {
+              value: 1,
+              unit: 'fl oz'
+            }
+          }]
+        }
+      },
+      {
+        resourceType: 'Medication',
+        code: {
+          text: "Hydrogen Peroxide"
+        },
+        isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
+        product: {
+          form: {
+            text: 'liquid'
+          },
+          ingredient: [{
+            item: {
+              resourceType: 'Substance',
+              code: {
+                text: 'Hydrogen peroxide (stabilized)'
+              },
+              description: 'First aid antiseptic, Oral deriding agent'
+            },
+            instance: [{
+              quantity: '3%'
+            }]
+          }]
+        },
+        package: {
+          container: {
+            text: 'liquid'
+          },
+          content: [{
+            amount: {
+              value: 16,
+              unit: 'fl oz'
+            }
+          }]
+        }
+      },
+      {
+        resourceType: 'Medication',
+        code: {
+          text: "TopCare"
+        },
+        isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
+        product: {
+          form: {
+            text: 'gel'
+          },
+          ingredient: [{
+            item: {
+              resourceType: 'Substance',
+              code: {
+                text: 'Aloe barbadensis leaf tract'
+              },
+              description: 'analgesic'
+            }
+          }]
+        },
+        package: {
+          container: {
+            text: 'bottle'
+          },
+          content: [{
+            amount: {
+              value: 16,
+              unit: 'fl oz'
+            }
+          }]
+        }
+      },
+
+
+
+      // ---------------------------------------------------------
+      // below probably doesn't work
+      // {
+      //   brandName: 'NyQuill',
+      //   quantity: '70',
+      //   quantityType: 'liquid',
+      //   count: 1,
+      //   activeIngredients: [{
+      //     name: 'Cetinizine HCl',
+      //     dosage: '10 mg',
+      //     purpose: 'Antihistamine'
+      //   }]
+      // },
       // {
       //   brandName: 'Zyrtec',
       //   quantity: '70',
@@ -79,7 +258,8 @@ Meteor.startup(function () {
       //     dosage: '10 mg',
       //     purpose: 'Antihistamine'
       //   }]
-      // }, {
+      // },
+      // {
       //   brandName: 'Mentholatum Ointment',
       //   quantity: '1 oz',
       //   quantityType: 'salve',
@@ -93,7 +273,8 @@ Meteor.startup(function () {
       //     dosage: '1.3%',
       //     purpose: 'Topical analgesic'
       //   }]
-      // }, {
+      // },
+      // {
       //   brandName: 'Hydrogen Peroxide',
       //   generic: true,
       //   quantity: '16 fl oz',
@@ -107,7 +288,8 @@ Meteor.startup(function () {
       //       'Oral deriding agent'
       //     ]}
       //   ]
-      // },  {
+      // },
+      // {
       //   brandName: 'TopCare',
       //   generic: false,
       //   quantity: '16 fl oz',
@@ -119,39 +301,9 @@ Meteor.startup(function () {
       //       'analgesic'
       //     ]}
       //   ]
-      // },  {
-      //   brandName: 'Ace',
-      //   supply: 'Joint Bandage',
-      //   generic: false,
-      //   count: 1
-      // },  {
-      //   brandName: '',
-      //   supply: 'Ice pack',
-      //   reusable: true,
-      //   generic: true,
-      //   count: 1
-      // },  {
-      //   supply: 'Hot water bottle',
-      //   reusable: true,
-      //   generic: true,
-      //   count: 1
-      // },  {
-      //   supply: 'Stethoscope',
-      //   reusable: true,
-      //   generic: true,
-      //   count: 1
-      // },   {
-      //   brandName: 'Johnson & Johnson',
-      //   supply: 'conforming bandage',
-      //   size: {
-      //     width: '10.2 cm',
-      //     length: '190.5 cm'
-      //   },
-      //   sterile: true,
-      //   reusable: false,
-      //   generic: true,
-      //   count: 1
-      // }
+      // },
+
+
       ]
     };
 
@@ -166,3 +318,86 @@ Meteor.startup(function () {
     //}
   }
 });
+
+
+
+
+
+var medicationTemplate = {
+  resourceType: 'Medication',
+  code: {
+    text: "TopCare"
+  },
+  isBrand: true,
+  manufacturer: {
+    display: '',
+    reference: ''
+  },
+  product: {
+    form: {
+      text: 'gel'
+    },
+    ingredient: [{
+      item: {
+        resourceType: 'Substance',
+        code: {
+          text: ''
+        },
+        description: ''
+      },
+      instance: [{
+        quantity: ''
+      }]
+    }]
+  },
+  package: {
+    container: {
+      text: 'bottle'
+    },
+    content: [{
+      amount: {
+        value: 16,
+        unit: 'fl oz'
+      }
+    }]
+  }
+};
+
+
+var supplies = [{
+  brandName: 'Ace',
+  supply: 'Joint Bandage',
+  generic: false,
+  count: 1
+},
+{
+  brandName: '',
+  supply: 'Ice pack',
+  reusable: true,
+  generic: true,
+  count: 1
+},
+{
+  supply: 'Hot water bottle',
+  reusable: true,
+  generic: true,
+  count: 1
+},
+{
+  supply: 'Stethoscope',
+  reusable: true,
+  generic: true,
+  count: 1
+},
+{
+  brandName: 'Johnson & Johnson',
+  supply: 'conforming bandage',
+  size: {
+    width: '10.2 cm',
+    length: '190.5 cm'
+  },
+  sterile: true,
+  reusable: false,
+  generic: true,
+  count: 1
+}];
