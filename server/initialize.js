@@ -73,10 +73,6 @@ Meteor.startup(function () {
           text: "Zyrtec"
         },
         isBrand: true,
-        manufacturer: {
-          display: '',
-          reference: ''
-        },
         product: {
           form: {
             text: 'tablet'
@@ -113,10 +109,6 @@ Meteor.startup(function () {
           text: "Mentholatum Ointment"
         },
         isBrand: true,
-        manufacturer: {
-          display: '',
-          reference: ''
-        },
         product: {
           form: {
             text: 'salve'
@@ -147,7 +139,7 @@ Meteor.startup(function () {
         },
         package: {
           container: {
-            text: ''
+            text: 'bottle'
           },
           content: [{
             amount: {
@@ -157,16 +149,13 @@ Meteor.startup(function () {
           }]
         }
       },
+
       {
         resourceType: 'Medication',
         code: {
           text: "Hydrogen Peroxide"
         },
         isBrand: true,
-        manufacturer: {
-          display: '',
-          reference: ''
-        },
         product: {
           form: {
             text: 'liquid'
@@ -202,10 +191,6 @@ Meteor.startup(function () {
           text: "TopCare"
         },
         isBrand: true,
-        manufacturer: {
-          display: '',
-          reference: ''
-        },
         product: {
           form: {
             text: 'gel'
@@ -231,84 +216,18 @@ Meteor.startup(function () {
             }
           }]
         }
-      },
+      }
 
 
 
-      // ---------------------------------------------------------
-      // below probably doesn't work
-      // {
-      //   brandName: 'NyQuill',
-      //   quantity: '70',
-      //   quantityType: 'liquid',
-      //   count: 1,
-      //   activeIngredients: [{
-      //     name: 'Cetinizine HCl',
-      //     dosage: '10 mg',
-      //     purpose: 'Antihistamine'
-      //   }]
-      // },
-      // {
-      //   brandName: 'Zyrtec',
-      //   quantity: '70',
-      //   quantityType: 'tablet',
-      //   count: 1,
-      //   activeIngredients: [{
-      //     name: 'Cetinizine HCl',
-      //     dosage: '10 mg',
-      //     purpose: 'Antihistamine'
-      //   }]
-      // },
-      // {
-      //   brandName: 'Mentholatum Ointment',
-      //   quantity: '1 oz',
-      //   quantityType: 'salve',
-      //   count: 1,
-      //   activeIngredients: [{
-      //     name: 'Camphor',
-      //     dosage: '9%',
-      //     purpose: 'Topical analgesic'
-      //   },  {
-      //     name: 'Menthol, natural',
-      //     dosage: '1.3%',
-      //     purpose: 'Topical analgesic'
-      //   }]
-      // },
-      // {
-      //   brandName: 'Hydrogen Peroxide',
-      //   generic: true,
-      //   quantity: '16 fl oz',
-      //   quantityType: 'fluid',
-      //   count: 1,
-      //   activeIngredients: [{
-      //     name: 'Hydrogen peroxide (stabilized)',
-      //     dosage: '3%',
-      //     purpose: [
-      //       'First aid antiseptic',
-      //       'Oral deriding agent'
-      //     ]}
-      //   ]
-      // },
-      // {
-      //   brandName: 'TopCare',
-      //   generic: false,
-      //   quantity: '16 fl oz',
-      //   quantityType: 'gel',
-      //   count: 1,
-      //   activeIngredients: [{
-      //     name: 'Aloe barbadensis leaf tract ',
-      //     purpose: [
-      //       'analgesic'
-      //     ]}
-      //   ]
-      // },
+
 
 
       ]
     };
 
     pharmaKit.inventory.forEach(function(medication){
-      if (Medications.find({brandName: medication.brandName}).count() === 0) {
+      if (Medications.find({'code.text': medication.code.text}).count() === 0) {
         Medications.insert(medication);
       }
     });
