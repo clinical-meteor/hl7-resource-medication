@@ -73,6 +73,10 @@ Meteor.startup(function () {
           text: "Zyrtec"
         },
         isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
         product: {
           form: {
             text: 'tablet'
@@ -109,6 +113,10 @@ Meteor.startup(function () {
           text: "Mentholatum Ointment"
         },
         isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
         product: {
           form: {
             text: 'salve'
@@ -156,6 +164,10 @@ Meteor.startup(function () {
           text: "Hydrogen Peroxide"
         },
         isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
         product: {
           form: {
             text: 'liquid'
@@ -191,6 +203,10 @@ Meteor.startup(function () {
           text: "TopCare"
         },
         isBrand: true,
+        manufacturer: {
+          display: '',
+          reference: ''
+        },
         product: {
           form: {
             text: 'gel'
@@ -202,7 +218,10 @@ Meteor.startup(function () {
                 text: 'Aloe barbadensis leaf tract'
               },
               description: 'analgesic'
-            }
+            },
+            instance: [{
+              quantity: '0.5 oz'
+            }]
           }]
         },
         package: {
