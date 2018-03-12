@@ -4,10 +4,12 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { Table } from 'react-bootstrap';
 import Toggle from 'material-ui/Toggle';
+import { Glass } from 'meteor/clinical:glass-ui';
+import { get } from 'lodash';
 
 Session.setDefault('selectedMedications', []);
 
-export default class MedicationsTable extends React.Component {
+export class MedicationsTable extends React.Component {
   getMeteorData() {
 
     // this should all be handled by props
@@ -33,21 +35,11 @@ export default class MedicationsTable extends React.Component {
           primaryIngredient: ''
         };
 
-        if (medication._id ) {
-          result._id = medication._id;
-        }
-        if (medication.code && medication.code.text ) {
-          result.name = medication.code.text ;
-        }
-        if (medication.manufacturer && medication.manufacturer.display ) {
-          result.manufacturer = medication.manufacturer.display ;
-        }
-        if (medication.product && medication.product.form && medication.product.form.text ) {
-          result.form = medication.product.form.text ;
-        }
-        if (medication.product && medication.product.ingredient && medication.product.ingredient[0] && medication.product.ingredient[0].item && medication.product.ingredient[0].item.code && medication.product.ingredient[0].item.code.text) {
-          result.primaryIngredient = medication.product.ingredient[0].item.code.text;
-        }
+        result._id = get(medication, '_id');
+        result.name = get(medication, 'code.text');
+        result.manufacturer = get(medication, 'manufacturer.display');
+        result.form = get(medication, 'product.form.text');
+        result.primaryIngredient = get(medication, 'product.ingredient[0].item.code.text');
 
         return result;
       })
@@ -84,7 +76,7 @@ export default class MedicationsTable extends React.Component {
 
 
     return(
-      <Table id="medicationsTable" ref='medicationsTable' responses hover >
+      <Table id="medicationsTable" ref='medicationsTable' hover >
         <thead>
           <tr>
             <th className="check">prescribed</th>
@@ -103,5 +95,5 @@ export default class MedicationsTable extends React.Component {
   }
 }
 
-
 ReactMixin(MedicationsTable.prototype, ReactMeteorData);
+export default MedicationsTable;

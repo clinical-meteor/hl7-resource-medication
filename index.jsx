@@ -24,11 +24,7 @@ export {
   DynamicRoutes, 
 
   MedicationsPage,
-  MedicationsTable,
-
-  Medication,
-  Medications,
-  MedicationSchema
+  MedicationsTable
 };
 
 

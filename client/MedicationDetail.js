@@ -52,7 +52,7 @@ Session.setDefault('medicationUpsert', false);
 Session.setDefault('selectedMedication', false);
 
 
-export default class MedicationDetail extends React.Component {
+export class MedicationDetail extends React.Component {
   getMeteorData() {
     let data = {
       medicationId: false,
@@ -293,3 +293,4 @@ MedicationDetail.propTypes = {
   hasUser: PropTypes.object
 };
 ReactMixin(MedicationDetail.prototype, ReactMeteorData);
+export default MedicationDetail;
