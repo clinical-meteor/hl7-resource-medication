@@ -107,11 +107,11 @@ Medications.attachSchema( ExtendedMedicationSchema );
 ```
 
 
-
 #### Utilities  
 
 If you're working with HL7 FHIR Resources, we recommend using [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en).
 
+   
+#### Acknowledgements     
 
-
-
+Many thanks to NY Methodist Hospital and the New Orleans Pharmacy Museum for research and studies conducted in support of this library.  
