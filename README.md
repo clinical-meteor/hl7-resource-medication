@@ -9,7 +9,7 @@
 
 
 #### API Reference  
-The resource in this package implements Medication resource schema, specified at [https://www.hl7.org/fhir/medication.html](https://www.hl7.org/fhir/medication.html). 
+The resource in this package implements Medication resource schema, specified at [https://www.hl7.org/fhir/DSTU2/medication.html](https://www.hl7.org/fhir/DSTU2/medication.html). 
 
 
 
