@@ -114,4 +114,4 @@ If you're working with HL7 FHIR Resources, we recommend using [Postman](https://
    
 #### Acknowledgements     
 
-Many thanks to NY Methodist Hospital and the New Orleans Pharmacy Museum for research and studies conducted in support of this library.  
+Many thanks to DxRx Medical, NY Methodist Hospital, and the New Orleans Pharmacy Museum for research and studies conducted in support of this library.  
