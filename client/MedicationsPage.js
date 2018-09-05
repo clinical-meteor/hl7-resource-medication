@@ -12,11 +12,10 @@ import MedicationsTable from './MedicationsTable';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
-
+Session.setDefault('fhirVersion', 'v1.0.2');
 Session.setDefault('medicationPageTabIndex', 1);
 Session.setDefault('medicationSearchFilter', ''); 
-Session.setDefault('selectedMedication', false);
-
+Session.setDefault('selectedMedicationId', false);
 
 export class MedicationsPage extends React.Component {
   getMeteorData() {
@@ -30,8 +29,16 @@ export class MedicationsPage extends React.Component {
       },
       tabIndex: Session.get('medicationPageTabIndex'),
       medicationSearchFilter: Session.get('medicationSearchFilter'),
-      currentMedication: Session.get('selectedMedication')
+      selectedMedicationId: Session.get('selectedMedicationId'),
+      fhirVersion: Session.get('fhirVersion'),
+      selectedMedication: false
     };
+
+    if (Session.get('selectedMedicationId')){
+      data.selectedMedication = Medications.findOne({_id: Session.get('selectedMedicationId')});
+    } else {
+      data.selectedMedication = false;
+    }
 
     data.style = Glass.blur(data.style);
     data.style.appbar = Glass.darkroom(data.style.appbar);
@@ -46,7 +53,7 @@ export class MedicationsPage extends React.Component {
   }
 
   onNewTab(){
-    Session.set('selectedMedication', false);
+    Session.set('selectedMedicationId', false);
     Session.set('medicationUpsert', false);
   }
 
@@ -61,13 +68,20 @@ export class MedicationsPage extends React.Component {
             <CardText>
               <Tabs id="medicationsPageTabs" default value={this.data.tabIndex} onChange={this.handleTabChange} initialSelectedIndex={1}>
                 <Tab className="newMedicationTab" label='New' style={this.data.style.tab} onActive={ this.onNewTab } value={0} >
-                  <MedicationDetail id='newMedication' />
+                  <MedicationDetail 
+                    id='newMedication'
+                    fhirVersion={ this.data.fhirVersion }
+                  />  
                 </Tab>
                 <Tab className="medicationListTab" label='Medications' onActive={this.handleActive} style={this.data.style.tab} value={1}>
                   <MedicationsTable />
                 </Tab>
                 <Tab className="medicationDetailsTab" label='Detail' onActive={this.handleActive} style={this.data.style.tab} value={2}>
-                  <MedicationDetail id='medicationDetails' />
+                  <MedicationDetail 
+                    id='medicationDetails'
+                    fhirVersion={ this.data.fhirVersion }
+                    medication={ this.data.selectedMedication }
+                    medicationId={ this.data.selectedMedicationId } />  
                 </Tab>
               </Tabs>
             </CardText>
