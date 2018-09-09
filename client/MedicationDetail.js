@@ -360,7 +360,7 @@ export class MedicationDetail extends React.Component {
 
       Medications.update(
         {_id: this.state.medicationId}, {$set: fhirMedicationData }, {
-          validate: false, 
+          validate: true, 
           filter: false, 
           removeEmptyStrings: false
         }, function(error, result) {
@@ -381,7 +381,7 @@ export class MedicationDetail extends React.Component {
       if(process.env.NODE_ENV === "test") console.log("create a new medication", fhirMedicationData);
 
       Medications.insert(fhirMedicationData, {
-        validate: false, 
+        validate: true, 
         filter: false, 
         removeEmptyStrings: false
       }, function(error, result) {
