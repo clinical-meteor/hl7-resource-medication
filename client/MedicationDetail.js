@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { get, set } from 'lodash';
 
-Session.setDefault('medicationUpsert', false);
 
 export class MedicationDetail extends React.Component {
   constructor(props) {
@@ -358,12 +357,8 @@ export class MedicationDetail extends React.Component {
       if(process.env.NODE_ENV === "test") console.log("Update Medication");
       delete fhirMedicationData._id;
 
-      Medications.update(
-        {_id: this.state.medicationId}, {$set: fhirMedicationData }, {
-          validate: get(Meteor, 'settings.public.defaults.schemas.validate', false), 
-          filter: get(Meteor, 'settings.public.defaults.schemas.filter', false), 
-          removeEmptyStrings: get(Meteor, 'settings.public.defaults.schemas.removeEmptyStrings', false)
-        }, function(error, result) {
+      Medications._collection.update(
+        {_id: this.state.medicationId}, {$set: fhirMedicationData }, function(error, result) {
           if (error) {
             console.log("error", error);
             Bert.alert(error.reason, 'danger');
@@ -380,11 +375,7 @@ export class MedicationDetail extends React.Component {
 
       if(process.env.NODE_ENV === "test") console.log("create a new medication", fhirMedicationData);
 
-      Medications.insert(fhirMedicationData, {
-        validate: get(Meteor, 'settings.public.defaults.schemas.validate', false), 
-        filter: get(Meteor, 'settings.public.defaults.schemas.filter', false), 
-        removeEmptyStrings: get(Meteor, 'settings.public.defaults.schemas.removeEmptyStrings', false)
-      }, function(error, result) {
+      Medications._collection.insert(fhirMedicationData, function(error, result) {
         if (error) {
           Bert.alert(error.reason, 'danger');
         }
@@ -392,7 +383,6 @@ export class MedicationDetail extends React.Component {
           HipaaLogger.logEvent({eventType: "create", userId: Meteor.userId(), userName: Meteor.user().fullName(), collectionName: "Medications", recordId: self.state.medicationId});
           Session.set('medicationPageTabIndex', 1);
           Session.set('selectedMedication', false);
-          Session.set('medicationUpsert', false);
           Bert.alert('Medication added!', 'success');
         }
       });
@@ -413,7 +403,6 @@ export class MedicationDetail extends React.Component {
         HipaaLogger.logEvent({eventType: "delete", userId: Meteor.userId(), userName: Meteor.user().fullName(), collectionName: "Medications", recordId: self.state.medicationId});
         Session.set('medicationPageTabIndex', 1);
         Session.set('selectedMedication', false);
-        Session.set('medicationUpsert', false);
         Bert.alert('Medication deleted!', 'success');
       }
     })
