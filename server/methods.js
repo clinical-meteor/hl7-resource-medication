@@ -21,7 +21,7 @@ Meteor.methods({
     },
     initializeMedications:function(){
 
-    if (process.env.Medications) {
+    //if (process.env.Medications) {
         console.log('Lets make sure our Medication inventory is correct...');
 
         var Claritin = {
@@ -418,9 +418,9 @@ Meteor.methods({
 
 
 
-    } else {
-        console.log('Medications already exist.  Skipping.');
-    }
+    // } else {
+    //     console.log('Medications already exist.  Skipping.');
+    // }
     },
     dropMedications: function(){
     if (process.env.NODE_ENV === 'test') {
