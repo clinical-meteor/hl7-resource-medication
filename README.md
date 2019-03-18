@@ -115,3 +115,8 @@ If you're working with HL7 FHIR Resources, we recommend using [Postman](https://
 #### Acknowledgements     
 
 Many thanks to DxRx Medical, NY Methodist Hospital, and the New Orleans Pharmacy Museum for research and studies conducted in support of this library.  
+
+
+#### Substances      
+
+https://www.npr.org/sections/thesalt/2019/02/24/696272090/cultured-a-look-at-how-foods-can-help-the-microbes-inside-us-thrive?utm_source=facebook.com&utm_medium=social&utm_campaign=npr&utm_term=nprnews&utm_content=20190224&fbclid=IwAR39W3TdloqIqHLy_UHOrj8xD37iUN3DjirojEVPCV_q41O15LtlpjtRELA
