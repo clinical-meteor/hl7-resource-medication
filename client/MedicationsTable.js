@@ -50,6 +50,7 @@ export class MedicationsTable extends React.Component {
         result.amount = get(medication, 'package.content[0].amount.value');
         result.manufacturer = get(medication, 'manufacturer.display');
 
+        // if we get a specific fhirVersion, be explicit about where to get the value
         switch (self.props.fhirVersion) {
           case '1.0.2':
             result.activeIngredient = get(medication, 'product.ingredient[0].item.display');            
@@ -58,7 +59,13 @@ export class MedicationsTable extends React.Component {
             result.activeIngredient = get(medication, 'product.ingredient[0].itemReference.display');            
             break;      
           default:
-            result.activeIngredient = get(medication, 'product.ingredient[0].itemReference.display');
+            // otherwise, walk through the likely steps, if possible
+            // may be worth extracting to Medication.prototype.getPrimaryIngredient()
+            if(get(medication, 'product.ingredient[0].item.display')){
+              result.activeIngredient = get(medication, 'product.ingredient[0].item.display');            
+            } else if(get(medication, 'product.ingredient[0].itemReference.display')){
+              result.activeIngredient = get(medication, 'product.ingredient[0].itemReference.display');
+            }
             break;
         }
 
