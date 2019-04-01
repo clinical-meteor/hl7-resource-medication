@@ -180,7 +180,8 @@ MedicationsTable.propTypes = {
   hideIdentifier: PropTypes.bool,
   hideToggle: PropTypes.bool,
   hideActionIcons: PropTypes.bool,
-  barcodes: PropTypes.bool
+  barcodes: PropTypes.bool,
+  onRowClick: PropTypes.func
 };
 ReactMixin(MedicationsTable.prototype, ReactMeteorData);
 export default MedicationsTable;
