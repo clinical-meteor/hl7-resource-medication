@@ -9,6 +9,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
 import { FaTags, FaCode, FaPuzzlePiece, FaLock  } from 'react-icons/fa';
+import { GoTrashcan } from 'react-icons/go'
 
 Session.setDefault('selectedMedications', []);
 
@@ -118,18 +119,35 @@ export class MedicationsTable extends React.Component {
       );
     }
   }
-  renderActionIcons(actionIcons ){
+  renderActionIcons( medication ){
     if (!this.props.hideActionIcons) {
+      let iconStyle = {
+        marginLeft: '4px', 
+        marginRight: '4px', 
+        marginTop: '4px', 
+        fontSize: '120%'
+      }
+
       return (
         <td className='actionIcons' style={{minWidth: '120px'}}>
-          <FaLock style={{marginLeft: '2px', marginRight: '2px'}} />
-          <FaTags style={{marginLeft: '2px', marginRight: '2px'}} />
-          <FaCode style={{marginLeft: '2px', marginRight: '2px'}} />
-          <FaPuzzlePiece style={{marginLeft: '2px', marginRight: '2px'}} />          
+          <FaTags style={iconStyle} onClick={this.showSecurityDialog.bind(this, medication)} />
+          <GoTrashcan style={iconStyle} onClick={this.removeRecord.bind(this, medication._id)} />  
         </td>
       );
     }
   } 
+  removeRecord(_id){
+    console.log('Remove medication ', _id)
+    Medications._collection.remove({_id: _id})
+  }
+  showSecurityDialog(medication){
+    console.log('showSecurityDialog', medication)
+
+    Session.set('securityDialogResourceJson', Medications.findOne(get(medication, '_id')));
+    Session.set('securityDialogResourceType', 'Medication');
+    Session.set('securityDialogResourceId', get(medication, '_id'));
+    Session.set('securityDialogOpen', true);
+  }
   rowClick(id){
     Session.set('medicationUpsert', false);
     Session.set('selectedMedicationId', id);
