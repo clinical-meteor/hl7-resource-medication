@@ -3,7 +3,7 @@ import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { Table } from 'react-bootstrap';
-import Toggle from 'material-ui/Toggle';
+import { Toggle, Checkbox } from 'material-ui';
 import { Glass } from 'meteor/clinical:glass-ui';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -77,19 +77,19 @@ export class MedicationsTable extends React.Component {
 
     return data;
   }
-  renderTogglesHeader(){
-    if (!this.props.hideToggle) {
+  renderCheckboxHeader(){
+    if (!this.props.hideCheckbox) {
       return (
-        <th className="toggle">Toggle</th>
+        <th className="toggle"></th>
       );
     }
   }
-  renderToggles(patientId ){
-    if (!this.props.hideToggle) {
+  renderCheckbox(patientId ){
+    if (!this.props.hideCheckbox) {
       return (
         <td className="toggle">
-            <Toggle
-              defaultToggled={true}
+            <Checkbox
+              defaultChecked={true}
             />
           </td>
       );
@@ -160,7 +160,7 @@ export class MedicationsTable extends React.Component {
     for (var i = 0; i < this.data.medications.length; i++) {
       tableRows.push(
       <tr className='medicationRow' ref='med-{i}' key={i} style={this.data.style.rowText} onClick={ this.rowClick.bind('this', this.data.medications[i]._id) }>
-        { this.renderToggles(this.data.medications[i]) }
+        { this.renderCheckbox(this.data.medications[i]) }
         { this.renderActionIcons(this.data.medications[i]) }
         <td className="code hidden-on-phone">{this.data.medications[i].code}</td>
         <td className="name hidden-on-phone">{this.data.medications[i].name}</td>
@@ -177,7 +177,7 @@ export class MedicationsTable extends React.Component {
       <Table id="medicationsTable" ref='medicationsTable' hover >
         <thead>
           <tr>
-            { this.renderTogglesHeader() }
+            { this.renderCheckboxHeader() }
             { this.renderActionIconsHeader() }
             <th className="code hidden-on-phone">Code</th>
             <th className="name hidden-on-phone">Name</th>
@@ -203,7 +203,7 @@ MedicationsTable.propTypes = {
   query: PropTypes.object,
   paginationLimit: PropTypes.number,
   hideIdentifier: PropTypes.bool,
-  hideToggle: PropTypes.bool,
+  hideCheckbox: PropTypes.bool,
   hideActionIcons: PropTypes.bool,
   barcodes: PropTypes.bool,
   onRowClick: PropTypes.func
