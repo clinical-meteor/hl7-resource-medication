@@ -1,10 +1,16 @@
+
+import { 
+  Checkbox, 
+  Table, 
+  TableRow, 
+  TableCell,
+  TableBody
+} from '@material-ui/core';
+
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 
-import { Table } from 'react-bootstrap';
-import { Toggle, Checkbox } from 'material-ui';
-import { Glass } from 'meteor/clinical:glass-ui';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -28,7 +34,7 @@ export class MedicationsTable extends React.Component {
         checkbox: {
           //marginBottom: 16
         },
-        rowText: Glass.darkroom({cursor: 'pointer'})
+        // rowText: Glass.darkroom({cursor: 'pointer'})
       },
       selected: [],
       medications: Medications.find().map(function(medication){
@@ -80,25 +86,25 @@ export class MedicationsTable extends React.Component {
   renderCheckboxHeader(){
     if (!this.props.hideCheckbox) {
       return (
-        <th className="toggle"></th>
+        <TableCell className="toggle"></TableCell>
       );
     }
   }
   renderCheckbox(patientId ){
     if (!this.props.hideCheckbox) {
       return (
-        <td className="toggle">
+        <TableCell className="toggle">
             <Checkbox
               defaultChecked={true}
             />
-          </td>
+          </TableCell>
       );
     }
   }
   renderIdentifierHeader(){
     if (!this.props.hideIdentifier) {
       return (
-        <th className="identifier">Identifier</th>
+        <TableCell className="identifier">Identifier</TableCell>
       );
     }
   }
@@ -109,13 +115,13 @@ export class MedicationsTable extends React.Component {
         classNames = 'barcode identifier'
       }
       return (
-        <td className={classNames}>{ get(medication, 'identifier[0].value') }</td>       );
+        <TableCell className={classNames}>{ get(medication, 'identifier[0].value') }</TableCell>       );
     }
   }
   renderActionIconsHeader(){
     if (!this.props.hideActionIcons) {
       return (
-        <th className='actionIcons' style={{minWidth: '120px'}}>Actions</th>
+        <TableCell className='actionIcons' style={{minWidth: '120px'}}>Actions</TableCell>
       );
     }
   }
@@ -129,10 +135,10 @@ export class MedicationsTable extends React.Component {
       }
 
       return (
-        <td className='actionIcons' style={{minWidth: '120px'}}>
+        <TableCell className='actionIcons' style={{minWidth: '120px'}}>
           <FaTags style={iconStyle} onClick={this.showSecurityDialog.bind(this, medication)} />
           <GoTrashcan style={iconStyle} onClick={this.removeRecord.bind(this, medication._id)} />  
-        </td>
+        </TableCell>
       );
     }
   } 
@@ -159,38 +165,38 @@ export class MedicationsTable extends React.Component {
     let tableRows = [];
     for (var i = 0; i < this.data.medications.length; i++) {
       tableRows.push(
-      <tr className='medicationRow' ref='med-{i}' key={i} style={this.data.style.rowText} onClick={ this.rowClick.bind('this', this.data.medications[i]._id) }>
+      <TableRow className='medicationRow' ref='med-{i}' key={i} style={this.data.style.rowText} onClick={ this.rowClick.bind('this', this.data.medications[i]._id) }>
         { this.renderCheckbox(this.data.medications[i]) }
         { this.renderActionIcons(this.data.medications[i]) }
-        <td className="code hidden-on-phone">{this.data.medications[i].code}</td>
-        <td className="name hidden-on-phone">{this.data.medications[i].name}</td>
-        <td className="manufacturer hidden-on-phone">{this.data.medications[i].manufacturer}</td>
-        <td className="amount">{this.data.medications[i].amount}</td>
-        <td className="form">{this.data.medications[i].form}</td>
-        <td className="activeIngredient">{this.data.medications[i].activeIngredient}</td>
+        <TableCell className="code hidden-on-phone">{this.data.medications[i].code}</TableCell>
+        <TableCell className="name hidden-on-phone">{this.data.medications[i].name}</TableCell>
+        <TableCell className="manufacturer hidden-on-phone">{this.data.medications[i].manufacturer}</TableCell>
+        <TableCell className="amount">{this.data.medications[i].amount}</TableCell>
+        <TableCell className="form">{this.data.medications[i].form}</TableCell>
+        <TableCell className="activeIngredient">{this.data.medications[i].activeIngredient}</TableCell>
         { this.renderIdentifier(this.data.medications[i]) }
-      </tr>);
+      </TableRow>);
     }
 
 
     return(
       <Table id="medicationsTable" ref='medicationsTable' hover >
-        <thead>
-          <tr>
+        <TableHead>
+          <TableRow>
             { this.renderCheckboxHeader() }
             { this.renderActionIconsHeader() }
-            <th className="code hidden-on-phone">Code</th>
-            <th className="name hidden-on-phone">Name</th>
-            <th className="manufacturer hidden-on-phone">Manufacturer</th>
-            <th className="amount">Amount</th>
-            <th className="form">Form</th>
-            <th className="activeIngredient">Active ingredient</th>
+            <TableCell className="code hidden-on-phone">Code</TableCell>
+            <TableCell className="name hidden-on-phone">Name</TableCell>
+            <TableCell className="manufacturer hidden-on-phone">Manufacturer</TableCell>
+            <TableCell className="amount">Amount</TableCell>
+            <TableCell className="form">Form</TableCell>
+            <TableCell className="activeIngredient">Active ingredient</TableCell>
             { this.renderIdentifierHeader() }
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           { tableRows }
-        </tbody>
+        </TableBody>
       </Table>
     );
   }

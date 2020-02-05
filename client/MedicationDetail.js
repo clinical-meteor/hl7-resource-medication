@@ -1,12 +1,25 @@
-import { CardActions, CardText } from 'material-ui/Card';
+import { 
+  Grid,
+  Card,
+  Button,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Typography,
+  TextField,
+  DatePicker
+} from '@material-ui/core';
 
-import RaisedButton from 'material-ui/RaisedButton';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import React from 'react';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import ReactMixin from 'react-mixin';
-import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
-import { Col, Grid, Row } from 'react-bootstrap';
 import { get, set } from 'lodash';
 
 
@@ -132,9 +145,10 @@ export class MedicationDetail extends React.Component {
 
     return (
       <div id={this.props.id} className="medicationDetail">
-        <CardText>
-          <Row>
-            <Col md={4}>
+        <CardContent>
+
+        <Grid container spacing={3}>
+            <Grid item md={4}>  
               <TextField
                 id='medicationCodeInput'
                 ref='code'
@@ -147,9 +161,8 @@ export class MedicationDetail extends React.Component {
                 fullWidth
                 /><br/>
               <a href='https://www.accessdata.fda.gov/scripts/cder/ndc/index.cfm' target="_blank">National Drug Code Directory</a>
-
-            </Col>
-            <Col md={4}>
+            </Grid>
+            <Grid item md={4}>
               <TextField
                 id='medicationNameInput'
                 ref='name'
@@ -161,8 +174,8 @@ export class MedicationDetail extends React.Component {
                 floatingLabelFixed={true}
                 fullWidth
                 /><br/>
-            </Col>
-            <Col md={4}>
+            </Grid>
+            <Grid item md={4}>
               <TextField
                 id='manufacturerDisplayInput'
                 ref='manufacturer'
@@ -174,10 +187,10 @@ export class MedicationDetail extends React.Component {
                 floatingLabelFixed={true}
                 fullWidth
                 /><br/>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4}>
+            </Grid>
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item md={4}>
               <TextField
                 id='activeIngredientInput'
                 ref='activeIngredient'
@@ -189,8 +202,8 @@ export class MedicationDetail extends React.Component {
                 floatingLabelFixed={true}
                 fullWidth
                 /><br/>
-            </Col>
-            <Col md={8}>  
+            </Grid>
+            <Grid item md={8}>  
               <TextField
                 id='activeIngredientDescriptionInput'
                 ref='activeIngredientDescription'
@@ -202,10 +215,10 @@ export class MedicationDetail extends React.Component {
                 disabled
                 fullWidth
                 /><br/>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={2}>
+            </Grid>            
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item md={2}>
               <TextField
                 id='amountInput'
                 ref='amount'
@@ -217,8 +230,8 @@ export class MedicationDetail extends React.Component {
                 hintText='40'
                 fullWidth
                 /><br/>
-            </Col>
-            <Col md={2}>
+            </Grid>
+            <Grid item md={2}>
               <TextField
                 id='medicationFormInput'
                 ref='form'
@@ -230,9 +243,9 @@ export class MedicationDetail extends React.Component {
                 floatingLabelFixed={true}
                 fullWidth
                 /><br/>
-            </Col>
-          </Row>
-        </CardText>
+            </Grid>
+          </Grid>
+        </CardContent>
         <CardActions>
           { this.determineButtons(this.state.medicationId) }
         </CardActions>
@@ -245,13 +258,13 @@ export class MedicationDetail extends React.Component {
     if (medicationId) {
       return (
         <div>
-          <RaisedButton id="updateMedicationButton" label="Save" primary={true} onClick={this.handleSaveButton.bind(this)} style={{marginRight: '20px'}}  />
-          <RaisedButton id="deleteMedicationButton" label="Delete" onClick={this.handleDeleteButton.bind(this)} />
+          <Button id="updateMedicationButton" primary={true} onClick={this.handleSaveButton.bind(this)} style={{marginRight: '20px'}} >Save</Button>
+          <Button id="deleteMedicationButton" onClick={this.handleDeleteButton.bind(this)} >Delete</Button>
         </div>
       );
     } else {
       return(
-        <RaisedButton id="saveMedicationButton" label="Save" primary={true} onClick={this.handleSaveButton.bind(this)} />
+        <Button id="saveMedicationButton" primary={true} onClick={this.handleSaveButton.bind(this)} >Save</Button>
       );
     }
   }
@@ -361,14 +374,14 @@ export class MedicationDetail extends React.Component {
         {_id: this.state.medicationId}, {$set: fhirMedicationData }, function(error, result) {
           if (error) {
             console.log("error", error);
-            Bert.alert(error.reason, 'danger');
+            // Bert.alert(error.reason, 'danger');
           }
           if (result) {
             HipaaLogger.logEvent({eventType: "update", userId: Meteor.userId(), userName: Meteor.user().fullName(), collectionName: "Medications", recordId: self.state.medicationId});
             Session.set('medicationPageTabIndex', 1);
             Session.set('selectedMedication', false);
             Session.set('medicationUpsert', false);
-            Bert.alert('Medication updated!', 'success');
+            // Bert.alert('Medication updated!', 'success');
           }
         });
     } else {
@@ -377,13 +390,13 @@ export class MedicationDetail extends React.Component {
 
       Medications._collection.insert(fhirMedicationData, function(error, result) {
         if (error) {
-          Bert.alert(error.reason, 'danger');
+          // Bert.alert(error.reason, 'danger');
         }
         if (result) {
           HipaaLogger.logEvent({eventType: "create", userId: Meteor.userId(), userName: Meteor.user().fullName(), collectionName: "Medications", recordId: self.state.medicationId});
           Session.set('medicationPageTabIndex', 1);
           Session.set('selectedMedication', false);
-          Bert.alert('Medication added!', 'success');
+          // Bert.alert('Medication added!', 'success');
         }
       });
     }
@@ -397,13 +410,13 @@ export class MedicationDetail extends React.Component {
     let self = this;
     Medications._collection.remove({_id: this.state.medicationId}, function(error, result){
       if (error) {
-        Bert.alert(error.reason, 'danger');
+        // Bert.alert(error.reason, 'danger');
       }
       if (result) {
         HipaaLogger.logEvent({eventType: "delete", userId: Meteor.userId(), userName: Meteor.user().fullName(), collectionName: "Medications", recordId: self.state.medicationId});
         Session.set('medicationPageTabIndex', 1);
         Session.set('selectedMedication', false);
-        Bert.alert('Medication deleted!', 'success');
+        // Bert.alert('Medication deleted!', 'success');
       }
     })
   }
